@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PinPatrol</title>
+
+    <link rel="shortcut icon" type="image/png" href="icon-16.png"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <link rel="stylesheet" href="SiteSecurityServiceState.css"/>
+
+</head>
+<body>
+    <img src="logo_pinpatrol.png" >
+    <p class="intro">A través de nuestro servicio, apoyado en la más avanzada tecnología y en la Inteligencia digital, nuestro equipo de expertos en ciberseguridad procesa, clasifica y asocia información procedente de diversas fuentes. De esta forma, recopilan las evidencias necesarias, entendiendo las metodologías y las motivaciones de los atacantes para realizar una detección temprana y un análisis del potencial impacto negativo para ayudarle a proteger su empresa.</p>
+
+	<table id="tableFile" border='0' style = 'text-align: center; border-spacing:0;'>
+        <thead>
+            <tr class='listTableTitle'>
+                <th class='listTableTitle'><span data-toggle="tooltip" data-placement="top" title="Domain protected under HSTS or HPKP.">Domain</span></th>
+                <th class='listTableTitle'><span>HSTS/HPK</span></th>
+                <th class='listTableTitle'><span data-toggle="tooltip" data-placement="top" title="This score is a Firefox value. It increases by one, every different day the domain is visited.">Score</span></th>
+                <th class='listTableTitle'><span data-toggle="tooltip" data-placement="top" title="Last day the domain was visited / Number of days since 01/01/70.">Date</span></th>
+                <th class='listTableTitle'><span data-toggle="tooltip" data-placement="top" title="Max-age of HSTS or HPKP.">Expiration Time</span></th>
+                <th class='listTableTitle'><span>SecurityProperty</span></th>
+                <th class='listTableTitle'><span data-toggle="tooltip" data-placement="top" title="Whether the HSTS or HPKP directive include subdomains.">Subdomains</span></th>
+                <th class='listTableTitle'><span data-toggle="tooltip" data-placement="top" title="List of pins in the HPKP header.">HPKP Pins</span></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <p class="outro"> <img class="footer" src="logo_elevenpaths.png" >Copyright 2016, ElevenPaths</p>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "title": "PinPatrol",
+  "name": "PinPatrol",
+  "version": "0.0.1",
+  "description": "Read SiteSecurityServiceState.txt file.",
+  "main": "index.js",
+  "author": "ElevenPaths",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}

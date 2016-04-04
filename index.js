@@ -8,22 +8,44 @@ const {Cu} = require("chrome");
 const {TextDecoder, TextEncoder, OS} = Cu.import("resource://gre/modules/osfile.jsm", {});
 
 var button = buttons.ActionButton({
-  id: "sitesecser-link",
-  label: "Open SiteSecurityServiceState",
+  id: "pinpatrol-link",
+  label: "Open PinPatrol",
   icon: {
     "16": "./icon-16.png",
     "32": "./icon-32.png",
     "64": "./icon-64.png"
   },
-  onClick: handleClick
+    onClick: handleClick
 });
+var panel = require("sdk/panel").Panel({
+    width: 90,
+    height: 80,
+    contentURL: self.data.url("loading.html"),
+    contentStyle: "body {margin: 0 !important;padding: 0 !important;}",
+    onHide: handleHide
+});
+function handleChange(state){
+    if (state.checked) {
+        panel.show({
+            position: button
+        });
+    }
+}
+function handleHide() {
+    button.state('window', {checked: false});
+}
 
 function handleClick(state) {
+    panel.show({
+        position: button
+    });
+
 	tabs.open({
-	url: "index.html",
-	onReady: runScript
+        url: "index.html",
+	    onReady: runScript
   });
 }
+
 
 function runScript(tab) {
     var file = null;
@@ -38,17 +60,23 @@ function runScript(tab) {
     let decoder = new TextDecoder();
     let promise = OS.File.read(file); // Read the complete file as an array
     var worker = tab.attach({
-        contentScriptFile: self.data.url("SiteSecSer.js")
+        contentScriptFile: [self.data.url("jquery.min.js"), self.data.url("jquery.dataTables.min.js"), self.data.url("dataTables.bootstrap.min.js"), self.data.url("bootstrap.min.js"), self.data.url("SiteSecSer.js")]
     });
 
     promise = promise.then(
     function onSuccess(array) {
-      var text = decoder.decode(array);
-      var list = text.split("\n");
-      worker.port.emit("onSuccess", list);
-      return list;        // Convert this array to a text
+
+        var text = decoder.decode(array);
+        var list = text.split("\n");
+        list.pop(); //delete the last
+
+        worker.port.emit("onSuccess", list);
+
+
+        return list;        // Convert this array to a text
     }, function onRejected(array){
           worker.port.emit("onRejected", array);
     }
     );
+    //console.log("finalizo run scritp");
 }

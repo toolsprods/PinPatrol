@@ -17,14 +17,20 @@ body {
     background-repeat: no-repeat;
 }
 
-tr.listTableTitle{
+.listTableTitle{
     background: none repeat scroll 0% 0% transparent;
     font-family: Arial;
     text-decoration: none;
     font-size: 19px;
     color: #ec435b;
     text-shadow: 0px 1px 0px rgb(255, 255, 255);
+    text-align: center;
+}
+tbody tr td{
+    border-bottom:1px solid none;
+    padding: 15px;
     text-align: left;
+
 }
 
 tr.listTableTitle td{
@@ -42,16 +48,6 @@ tr.listTableTitle td{
 th.listTableTitle{
     padding: 15px;
 }
-
-.listTableCell p.listTablePWide {
-
-}
-
-
-th.listTableTitle p.listTablePWide {
-
-}
-
 .bold {
     color: #666666;
     font-size: 16px;

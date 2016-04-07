@@ -21,7 +21,6 @@ var panel = require("sdk/panel").Panel({
     width: 90,
     height: 80,
     contentURL: self.data.url("loading.html"),
-    contentStyle: "body {margin: 0 !important;padding: 0 !important;}",
     onHide: handleHide
 });
 function handleChange(state){
@@ -49,10 +48,10 @@ function handleClick(state) {
 
 function runScript(tab) {
     var file = null;
-    if(system.platform == 'winnt'){
+    if(system.platform === 'winnt'){
         file = system.pathFor("ProfD") + "\\SiteSecurityServiceState.txt";
     }
-    else if(system.platform == 'darwin' || system.platform == 'linux')
+    else if(system.platform === 'darwin' || system.platform === 'linux')
     {
         file = system.pathFor("ProfD") + "/SiteSecurityServiceState.txt";
     }
@@ -60,23 +59,25 @@ function runScript(tab) {
     let decoder = new TextDecoder();
     let promise = OS.File.read(file); // Read the complete file as an array
     var worker = tab.attach({
-        contentScriptFile: [self.data.url("jquery.min.js"), self.data.url("jquery.dataTables.min.js"), self.data.url("dataTables.bootstrap.min.js"), self.data.url("bootstrap.min.js"), self.data.url("SiteSecSer.js")]
+        contentScriptFile: [
+            self.data.url("jquery.min.js"),
+            self.data.url("jquery.dataTables.min.js"),
+            self.data.url("dataTables.bootstrap.min.js"),
+            self.data.url("bootstrap.min.js"),
+            self.data.url("SiteSecSer.js")
+        ]
     });
 
     promise = promise.then(
     function onSuccess(array) {
-
         var text = decoder.decode(array);
         var list = text.split("\n");
         list.pop(); //delete the last
-
         worker.port.emit("onSuccess", list);
-
-
-        return list;        // Convert this array to a text
+        return list;
     }, function onRejected(array){
           worker.port.emit("onRejected", array);
     }
     );
-    //console.log("finalizo run scritp");
+
 }

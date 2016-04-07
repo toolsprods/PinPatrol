@@ -1,7 +1,6 @@
 
 self.port.on("onSuccess", function(data) {
     $('[data-toggle="tooltip"]').tooltip();
-
     writeTable(data);
 
 });
@@ -9,7 +8,7 @@ self.port.on("onSuccess", function(data) {
 self.port.on("onRejected", function(error) {
     $('[data-toggle="tooltip"]').tooltip();
     $('#tableFile').DataTable();
-    if (error['operation'] == 'open'){
+    if (error['operation'] === 'open'){
         alert("SiteSecurityServiceState.txt file not found.");
     }
 
@@ -17,7 +16,6 @@ self.port.on("onRejected", function(error) {
 
 function writeTable(list){
 
-    //list.pop(); //delete the last
     var table = $('#tableFile').DataTable({
         "initComplete": function( settings, json ) {
             $('div.loading').remove();
@@ -52,19 +50,21 @@ function writeTable(list){
             "targets": 5,
             "createdCell": function (td, cellData, rowData, row, col) {
                 $(td).attr('title', cellData);
-
+1
             },
             "render": function (data, type, full, meta) {
                 //security property set
                 var property = "";
-                if (data == 0) {
-                    property = "SecurityPropertyUnset";
-                }
-                else if (data == 1) {
-                    property = "SecurityPropertySet";
-                }
-                else {
-                    property = "SecurityPropertyKnockout";
+                switch (data){
+                    case 0:
+                        property = "SecurityPropertyUnset";
+                        break;
+                    case 1:
+                        property = "SecurityPropertySet";
+                        break;
+                    default:
+                        property = "SecurityPropertyKnockout";
+
 
                 }
                 return property;
@@ -74,13 +74,9 @@ function writeTable(list){
 
     });
 
-    for(i = 0; i<list.length; i++) {
-
+    for(var i = 0; i<list.length; i++) {
         var columns = list[i].split("\t");
-
-
-
-        for (j = 0; j < columns.length; j++) {
+        for (var j = 0; j < columns.length; j++) {
             switch (j) {
                 case 0:
                     var firtsrow = columns[j].split(":");
@@ -98,22 +94,15 @@ function writeTable(list){
                     var lastrow = columns[j].split(",");
                     //date expire
                     var dateExpire = lastrow[0];
-
                     var property = lastrow[1];
 
                     //include subdomains
-                    if(lastrow[2]== 1){
-                        var subDomains = "includeSubdomains";
-                    }
-                    else{
-                        var subDomains = " - ";
-
-                    }
+                    var subDomains = lastrow[2] === 1 ? "includeSubdomains" : " - ";
 
                     if(lastrow[3] != null){
                         var pins = lastrow[3].split("=");
                         var temp = "";
-                        for(k = 0; k < pins.length; k++){
+                        for(var k = 0; k < pins.length; k++){
                             if(pins[k] != ""){
                                 temp = pins[k] + "=" + "<br/>" + temp
                             }
@@ -124,7 +113,6 @@ function writeTable(list){
                         var fpins = " - ";
                     }
                     break;
-
             }
         }
         var table = $('#tableFile').DataTable();

@@ -55,18 +55,16 @@ function writeTable(list){
             "render": function (data, type, full, meta) {
                 //security property set
                 var property = "";
-                switch (data){
-                    case 0:
-                        property = "SecurityPropertyUnset";
-                        break;
-                    case 1:
-                        property = "SecurityPropertySet";
-                        break;
-                    default:
-                        property = "SecurityPropertyKnockout";
-
-
+                if(data == 0){
+                    property = "SecurityPropertyUnset";
                 }
+                else if(data == 1){
+                    property = "SecurityPropertySet";
+                }
+                else{
+                    property = "SecurityPropertyKnockout";
+                }
+
                 return property;
             }
 

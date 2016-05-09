@@ -2,6 +2,7 @@
 self.port.on("onSuccess", function(data) {
     $('[data-toggle="tooltip"]').tooltip();
     writeTable(data);
+    self.port.emit("close-tab", "close");
 
 });
 

@@ -6,10 +6,10 @@
   "main": "index.js",
   "author": "ElevenPaths",
   "engines": {
-    "firefox": ">=38.0a1"
+    "firefox": ">=32.0"
   },
-  "license": "MIT",
+  "license": "GPL",
   "keywords": [
-    "jetpack"
+    "hsts", "hpkp", "certificate pinning", "TLS"
   ]
 }

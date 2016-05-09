@@ -7,6 +7,7 @@ const {Cu} = require("chrome");
 // To read & write content to file
 const {TextDecoder, TextEncoder, OS} = Cu.import("resource://gre/modules/osfile.jsm", {});
 
+
 var button = buttons.ActionButton({
   id: "pinpatrol-link",
   label: "Open PinPatrol",
@@ -21,18 +22,14 @@ var panel = require("sdk/panel").Panel({
     width: 90,
     height: 80,
     contentURL: self.data.url("loading.html"),
-    onHide: handleHide
+    onHide: handleHide,
+
 });
-function handleChange(state){
-    if (state.checked) {
-        panel.show({
-            position: button
-        });
-    }
-}
+
 function handleHide() {
     button.state('window', {checked: false});
 }
+
 
 function handleClick(state) {
     panel.show({
@@ -41,10 +38,11 @@ function handleClick(state) {
 
 	tabs.open({
         url: "index.html",
-	    onReady: runScript
+	    onReady: runScript,
   });
-}
 
+
+}
 
 function runScript(tab) {
     var file = null;
@@ -64,8 +62,11 @@ function runScript(tab) {
             self.data.url("jquery.dataTables.min.js"),
             self.data.url("dataTables.bootstrap.min.js"),
             self.data.url("bootstrap.min.js"),
-            self.data.url("SiteSecSer.js")
+            self.data.url("SiteSecSer.js"),
         ]
+    });
+    worker.port.on("close-tab", function(elementContent) {
+        panel.hide();
     });
 
     promise = promise.then(
@@ -74,10 +75,13 @@ function runScript(tab) {
         var list = text.split("\n");
         list.pop(); //delete the last
         worker.port.emit("onSuccess", list);
+        worker.port.emit("panel", panel);
         return list;
     }, function onRejected(array){
           worker.port.emit("onRejected", array);
     }
     );
+
+
 
 }

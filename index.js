@@ -12,9 +12,9 @@ var button = buttons.ActionButton({
   id: "pinpatrol-link",
   label: "Open PinPatrol",
   icon: {
-    "16": "./icon-16.png",
-    "32": "./icon-32.png",
-    "64": "./icon-64.png"
+    "16": "./img/icon-16.png",
+    "32": "./img/icon-32.png",
+    "64": "./img/icon-64.png"
   },
     onClick: handleClick
 });
@@ -58,11 +58,11 @@ function runScript(tab) {
     let promise = OS.File.read(file); // Read the complete file as an array
     var worker = tab.attach({
         contentScriptFile: [
-            self.data.url("jquery.min.js"),
-            self.data.url("jquery.dataTables.min.js"),
-            self.data.url("dataTables.bootstrap.min.js"),
-            self.data.url("bootstrap.min.js"),
-            self.data.url("SiteSecSer.js"),
+            self.data.url("js/jquery.min.js"),
+            self.data.url("js/jquery.dataTables.min.js"),
+            self.data.url("js/dataTables.bootstrap.min.js"),
+            self.data.url("js/bootstrap.min.js"),
+            self.data.url("js/SiteSecSer.js"),
         ]
     });
     worker.port.on("close-tab", function(elementContent) {
